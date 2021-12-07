@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron">
+  <h1>Thank you for signing up {{first}} {{last}}!</h1>
+
+  <p>Let see how you performed!!</p>
+  {# Recall that report is a boolean #}
+  {% if name_check['report'] %}
+    <p>Your Company name passed the 3 requirements!</p>
+  {% else %}
+    <p>Oh no! Looks like you had issues with your company name!</p>
+    <p>Here are the requirements you failed:</p>
+    <ul>
+      {% if not name_check['lower_letter'] %}
+      <li>You did not use a lowercase character.</li>
+      {% endif %}
+      {% if not name_check['upper_letter'] %}
+      <li>You did not use an uppercase character.</li>
+      {% endif %}
+      {% if not name_check['num_end'] %}
+      <li>You did not end your username with a number.</li>
+      {% endif %}
+
+    </ul>
+  {% endif %}
+</div>
+
+{% endblock %}

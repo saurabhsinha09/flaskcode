@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="jumbtron">
+        <h6>Our mission is {{mission}}</h4>
+    </div>
+    <h4>We are consulting in below cloud.</h2>
+      <ul>
+          {% for item in mycloud %}
+            <li>{{item}}</li>
+            {% if 'GCP' == item %}
+              <p>Consultant is Saurabh.</p>
+            {% else %}
+              <p>Consultant is Sinha.</p>
+            {% endif %}
+          {% endfor %}
+      </ul>
+</div>
+
+
+
+{% endblock %}

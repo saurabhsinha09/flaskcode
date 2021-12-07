@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Welcome to Cloud enrollment form</h1>
+<p>Please fill the following details to connect with you.</p>
+
+<form action="{{ url_for('thankyou') }}">
+    <label for="first">First Name</label>
+    <input type="text" name="first">
+    <label for="last">Last Name</label>
+    <input type="text" name="last">
+    <label for="email">Email ID</label>
+    <input id = "email" type="email" name="emailid">
+    <br>
+    <p>Company Name Restrictions</p>
+    <ul>
+    <li>Must have an upper case letter somewhere.</li>
+    <li>Must have a lower case letter somewhere.</li>
+    <li>Must have a number at the end.</li>
+    </ul>
+    <label for="company">Company Name</label>
+    <input type="text" name="company">
+    <input type="submit" value="Submit Form">
+</form>
+{% endblock %}
