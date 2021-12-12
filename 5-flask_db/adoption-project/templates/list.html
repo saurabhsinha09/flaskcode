@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+  {% if puppies|length > 0 %}
+    <h1>Here is a list of all available puppies.</h1>
+    <ul>
+      {% for pup in puppies  %}
+      <li>{{pup}}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if owners|length > 0 %}
+    <h1>Here is a list of all available owners.</h1>
+    <ul>
+      {% for owner in owners  %}
+      <li>{{owner}}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+</div>
+{% endblock %}
