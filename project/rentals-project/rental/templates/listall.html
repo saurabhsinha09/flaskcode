@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+  {% if vehicles %}
+    <h1>Here is a list of all available vehicles.</h1>
+    <ul>
+      {% for vehicle in vehicles  %}
+      <li>{{vehicle}}</li>
+      {% endfor %}
+    </ul>
+  {% elif prices %}
+    <h1>Here is the price list of all available vehicles.</h1>
+    <ul>
+      {% for price in prices  %}
+      <li>{{price}}</li>
+      {% endfor %}
+    </ul>
+  {% elif users %}
+    <h1>Here is a list of all available users.</h1>
+    <ul>
+      {% for user in users  %}
+      <li>{{user}}</li>
+      {% endfor %}
+    </ul>
+  {% elif rentals %}
+    <h1>Here is the list of all rental vehicle.</h1>
+    <ul>
+      {% for rental in rentals  %}
+      <li>{{rental}}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <h1>Here is a list of all available owners.</h1>
+    <ul>
+      {% for owner in owners  %}
+      <li>{{owner}}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>
+{% endblock %}

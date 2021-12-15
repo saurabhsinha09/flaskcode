@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+  <h1>Here is the list of all rental vehicle.</h1>
+    <ul>
+      {% for rental in rentals  %}
+        <li>{{rental}}</li>
+      {% endfor %}
+    </ul>
+</div>
+{% endblock %}

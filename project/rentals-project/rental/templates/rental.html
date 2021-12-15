@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+  <h1>Rental Registration</h1>
+  <p>Please fill following details for renting vehicle:</p>
+  <form method="POST">
+      {# This hidden_tag is a CSRF security feature. #}
+      {{ form.hidden_tag() }}
+      {{ form.duration.label }} {{ form.duration() }}
+      {{ form.vehicle_type.label }} {{ form.vehicle_type() }}
+      {{ form.user_id.label }} {{ form.user_id() }}
+      {{ form.vehicle_id.label }} {{ form.vehicle_id() }}    
+      {{ form.submit() }}
+  </form>
+</div>
+{% endblock %}

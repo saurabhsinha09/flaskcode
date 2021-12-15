@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+  <h1>Vehicle Registration</h1>
+  <p>Please fill following details for vehicle registration:</p>
+  <form method="POST">
+      {# This hidden_tag is a CSRF security feature. #}
+      {{ form.hidden_tag() }}
+      {{ form.vehicle_number.label }} {{ form.vehicle_number() }}
+      {{ form.vehicle_make.label }} {{ form.vehicle_make() }}
+      {{ form.vehicle_model.label }} {{ form.vehicle_model() }}
+      {{ form.vehicle_type.label }} {{ form.vehicle_type() }}
+      {{ form.vehicle_dop.label }} {{ form.vehicle_dop() }}
+      {{ form.owner_id.label }} {{ form.owner_id() }}
+      {{ form.submit() }}
+  </form>
+</div>
+{% endblock %}
