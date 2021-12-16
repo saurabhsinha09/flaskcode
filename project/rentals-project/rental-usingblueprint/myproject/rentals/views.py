@@ -3,10 +3,12 @@ from flask import Blueprint, render_template, redirect, url_for
 from myproject import db
 from myproject.models import Rental, Price
 from myproject.rentals.forms import RentalForm, PriceForm
+from flask_login import login_required
 
 rentals_blueprint = Blueprint('rentals', __name__, template_folder='templates/rentals')
 
 @rentals_blueprint.route('/rent', methods=['GET', 'POST'])
+@login_required
 def rental():
     form = RentalForm()
 
@@ -30,16 +32,19 @@ def rental():
     return render_template('rental.html',form=form) 
 
 @rentals_blueprint.route('/thankyou')   
+@login_required
 def thankyou():
     return render_template('thank_r.html')    
 
 @rentals_blueprint.route('/rentallist') 
+@login_required
 def all_rental():
     # Grab a list of vehicles from database.
     rentals = Rental.query.all()
     return render_template('list_r.html', rentals = rentals)
 
 @rentals_blueprint.route('/price', methods=['GET', 'POST'])
+@login_required
 def price():
     form = PriceForm()
 
@@ -58,6 +63,7 @@ def price():
     return render_template('price.html',form=form)    
 
 @rentals_blueprint.route('/priceslist')
+@login_required
 def all_price():
     # Grab a list of vehicles from database.
     prices = Price.query.all()

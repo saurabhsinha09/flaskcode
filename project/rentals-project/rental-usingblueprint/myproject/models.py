@@ -1,12 +1,37 @@
 ##db setup inside __init__.py##
-from myproject import db
+from myproject import db, login_manager
+from werkzeug.security import generate_password_hash,check_password_hash
+from flask_login import UserMixin
+
+# The user_loader decorator allows flask-login  
+# to load the current user and grab their id.
+@login_manager.user_loader
+def load_user(user_id):
+    return Login.query.get(user_id)
+
+class Login(db.Model, UserMixin):
+
+    __tablename__ = 'login'
+    id            = db.Column(db.Integer, primary_key = True)
+    email         = db.Column(db.String(64), unique=True, index=True)
+    username      = db.Column(db.String(64), unique=True, index=True)
+    password_hash = db.Column(db.String(128))
+
+    def __init__(self, email, username, password):
+        self.email         = email
+        self.username      = username
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self,password):
+        # https://stackoverflow.com/questions/23432478/flask-generate-password-hash-not-constant-output
+        return check_password_hash(self.password_hash,password)
 
 class Owner(db.Model):
 
     __tablename__ = 'owners'
     owner_id = db.Column(db.Integer,primary_key= True)
     name     = db.Column(db.Text)
-    email    = db.Column(db.String(120))
+    email    = db.Column(db.String(120),unique=True, index=True)
     #Every owner can have one vehicle
     vehicles = db.relationship('Vehicle', backref = 'vehicle', uselist=False)
 
@@ -64,7 +89,7 @@ class User(db.Model):
     __tablename__ = 'users'
     user_id = db.Column(db.Integer,primary_key= True)
     name    = db.Column(db.Text)
-    email   = db.Column(db.String(120))
+    email   = db.Column(db.String(120),unique=True, index=True)
     #Every user can rent one vehicle
     rental = db.relationship('Rental', backref = 'vehicle', uselist=False)
 

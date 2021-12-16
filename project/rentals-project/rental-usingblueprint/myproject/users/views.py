@@ -3,10 +3,12 @@ from flask import Blueprint, render_template, redirect, url_for
 from myproject import db
 from myproject.models import User
 from myproject.users.forms import AddForm, DelForm 
+from flask_login import login_required
 
 users_blueprint = Blueprint('users', __name__, template_folder='templates/users')
 
 @users_blueprint.route('/add', methods=['GET', 'POST'])
+@login_required
 def add_user():
     form = AddForm()
 
@@ -23,17 +25,20 @@ def add_user():
 
     return render_template('user.html',form=form) 
 
-@users_blueprint.route('/thankyou')   
+@users_blueprint.route('/thankyou')  
+@login_required 
 def thankyou():
-    return render_template('thankyou.html')      
+    return render_template('thank_u.html')      
 
 @users_blueprint.route('/users') 
+@login_required
 def all_user():
     # Grab a list of vehicles from database.
     users = User.query.all()
     return render_template('list_u.html', users = users) 
 
-@users_blueprint.route('/delete', methods=['GET', 'POST'])    
+@users_blueprint.route('/delete', methods=['GET', 'POST'])  
+@login_required  
 def del_user():
 
     form = DelForm()

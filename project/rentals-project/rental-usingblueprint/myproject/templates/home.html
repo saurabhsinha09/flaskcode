@@ -1,8 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="jumbotron">
-  <h1>Welcome to enrollment of vehicle</h1>
-  <p>Please select signup for owner registration.</p>
-  <p>After owner registration, Please register your vehicle</p>
+  {% if current_user.is_authenticated %}
+    <h2>Hi {{ current_user.username }}!</h2>
+
+    <h3>Welcome to enrollment of vehicle or renting of vehicle.</h3>
+    <p>Please signup for owner registration.</p>
+    <p>After owner registration, Please register your vehicle.</p>
+    <br>
+    <p>Please signup for user registration.</p>
+    <p>After user registration, Please fill form to rent vehicle.</p>
+  {% else %}
+    <p>Please login or register!</p>
+  {% endif %}
 </div>
 {% endblock %}

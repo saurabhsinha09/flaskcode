@@ -15,62 +15,81 @@
       <div class="navbar-nav">
         <a class="nav-item nav-link" href="{{ url_for('index') }}">Home</a>
 
-        <li class="nav-item dropdown">
+        {% if current_user.is_authenticated %}
 
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Owner
-          </a>
+          <li class="nav-item dropdown">
 
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="nav-item nav-link" href="{{ url_for('owners.add_owner') }}">Signup</a>
-            <a class="nav-item nav-link" href="{{ url_for('owners.all_owner') }}">List of all Owners</a>
-            <a class="nav-item nav-link" href="{{ url_for('owners.del_owner') }}">Remove Owner</a>
-          </div>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Owner
+            </a>
 
-        </li>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="nav-item nav-link" href="{{ url_for('owners.add_owner') }}">Signup</a>
 
-        <li class="nav-item dropdown">
+              {% if current_user.get_id() == '4' %}
+                <a class="nav-item nav-link" href="{{ url_for('owners.all_owner') }}">List of all Owners</a>
+                <a class="nav-item nav-link" href="{{ url_for('owners.del_owner') }}">Remove Owner</a>
+              {% endif %}
+            </div>
 
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Vehicle
-          </a>
+          </li>
 
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="nav-item nav-link" href="{{ url_for('vehicles.add_vehicle') }}">Add Vehicle</a>
-            <a class="nav-item nav-link" href="{{ url_for('vehicles.all_vehicle') }}">List of all Vehicles</a>
-            <a class="nav-item nav-link" href="{{ url_for('vehicles.del_vehicle') }}">Remove Vehicle</a>
-          </div>
+          <li class="nav-item dropdown">
 
-        </li>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Vehicle
+            </a>
 
-        <li class="nav-item dropdown">
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="nav-item nav-link" href="{{ url_for('vehicles.add_vehicle') }}">Add Vehicle</a>
 
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            User
-          </a>
-          
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="nav-item nav-link" href="{{ url_for('users.add_user') }}">User</a>
-            <a class="nav-item nav-link" href="{{ url_for('users.all_user') }}">List of all Users</a>
-            <a class="nav-item nav-link" href="{{ url_for('users.del_user') }}">Remove user</a>
-          </div>
+              {% if current_user.get_id() == '4' %}
+                <a class="nav-item nav-link" href="{{ url_for('vehicles.all_vehicle') }}">List of all Vehicles</a>
+                <a class="nav-item nav-link" href="{{ url_for('vehicles.del_vehicle') }}">Remove Vehicle</a>
+              {% endif %}
+            </div>
 
-        </li>
+          </li>
 
-        <li class="nav-item dropdown">
+          <li class="nav-item dropdown">
 
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Rentals
-          </a>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              User
+            </a>
+            
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="nav-item nav-link" href="{{ url_for('users.add_user') }}">User</a>
 
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="nav-item nav-link" href="{{ url_for('rentals.rental') }}">Rent Vehicle</a>
-            <a class="nav-item nav-link" href="{{ url_for('rentals.all_rental') }}">Rented vehicles list </a>
-            <a class="nav-item nav-link" href="{{ url_for('rentals.price') }}">Price</a>
-            <a class="nav-item nav-link" href="{{ url_for('rentals.all_price') }}">Price List</a>
-          </div>
+              {% if current_user.get_id() == '4' %}
+                <a class="nav-item nav-link" href="{{ url_for('users.all_user') }}">List of all Users</a>
+                <a class="nav-item nav-link" href="{{ url_for('users.del_user') }}">Remove user</a>
+              {% endif %}
+            </div>
 
-        </li>
+          </li>
+
+          <li class="nav-item dropdown">
+
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Rentals
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="nav-item nav-link" href="{{ url_for('rentals.rental') }}">Rent Vehicle</a>
+
+              {% if current_user.get_id() == '4' %}
+                <a class="nav-item nav-link" href="{{ url_for('rentals.all_rental') }}">Rented vehicles list </a>
+                <a class="nav-item nav-link" href="{{ url_for('rentals.price') }}">Price</a>
+                <a class="nav-item nav-link" href="{{ url_for('rentals.all_price') }}">Price List</a>
+              {% endif %}
+            </div>
+
+          </li>
+          <li class="nav-link"><a href="{{ url_for('login.logout') }}">Log Out</a></li>
+        {% else %}
+          <li class="nav-link"><a href="{{ url_for('login.login') }}">Log In</a></li>
+          <li class="nav-link"><a href="{{ url_for('login.register') }}">Register</a></li>
+        {% endif %}
 
       </div>
     </nav>

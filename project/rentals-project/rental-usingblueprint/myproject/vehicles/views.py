@@ -3,10 +3,12 @@ from flask import Blueprint, render_template, redirect, url_for
 from myproject import db
 from myproject.models import Vehicle
 from myproject.vehicles.forms import AddForm, DelForm 
+from flask_login import login_required
 
 vehicles_blueprint = Blueprint('vehicles', __name__, template_folder='templates/vehicles')
 
 @vehicles_blueprint.route('/add', methods=['GET', 'POST'])
+@login_required
 def add_vehicle():
     form = AddForm()
 
@@ -28,12 +30,14 @@ def add_vehicle():
     return render_template('add_v.html', form=form)
 
 @vehicles_blueprint.route('/vehicles')
+@login_required
 def all_vehicle():
     # Grab a list of vehicles from database.
     vehicles = Vehicle.query.all()
     return render_template('list_v.html', vehicles = vehicles)    
 
 @vehicles_blueprint.route('/delete', methods=['GET', 'POST'])
+@login_required
 def del_vehicle():
 
     form = DelForm()
