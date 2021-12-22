@@ -1,5 +1,5 @@
 ##db setup inside __init__.py##
-from myproject import db, login_manager
+from myproject import db, login_manager, ma
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 
@@ -83,6 +83,10 @@ class Price(db.Model):
 
     def __repr__(self):
         return f"Rental amount for vehicle type {self.vehicle_type} of duration {self.duration} is {self.amount}." 
+
+class PriceSchema(ma.Schema):
+    class Meta:
+        fields = ('type_id','vehicle_type','duration','amount')
 
 class User(db.Model):
 

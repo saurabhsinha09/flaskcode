@@ -5,6 +5,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 import configparser
+from flask_restful import Api
+from flask_marshmallow import Marshmallow
 
 config = configparser.ConfigParser()
 config.read('./myproject/db.ini')
@@ -19,6 +21,8 @@ login_manager = LoginManager()
 app = Flask(__name__)
 # Key for Forms
 app.config['SECRET_KEY'] = 'carbikerental'
+
+ma = Marshmallow(app)
 
 ############################################
         # SQL DATABASE #
@@ -48,3 +52,7 @@ app.register_blueprint(vehicles_blueprint, url_prefix='/vehicles')
 app.register_blueprint(users_blueprint, url_prefix='/users')
 app.register_blueprint(rentals_blueprint, url_prefix='/rentals')
 app.register_blueprint(login_blueprint, url_prefix='/login')
+
+from myproject.resources.routes import initialize_routes
+api = Api(app)
+initialize_routes(api)
